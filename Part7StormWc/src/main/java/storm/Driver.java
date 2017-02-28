@@ -1,5 +1,7 @@
 package storm;
 
+import java.util.Map;
+
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.hbase.bolt.HBaseBolt;
@@ -24,6 +26,8 @@ import org.apache.storm.topology.IBasicBolt;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
+
+import com.google.common.collect.Maps;
 
 
 public class Driver {
@@ -68,6 +72,9 @@ public class Driver {
 		builder.setBolt("wcHiveBolt", wcHiveBolt).shuffleGrouping("wccountbolt");
 
 		Config cfg = new Config();
+		Map<String, String> HBConfig = Maps.newHashMap();
+		HBConfig.put("hbase.rootdir","hdfs://<IP Address>:8020/hbase");
+		cfg.put("HBCONFIG",HBConfig);
 
 		StormSubmitter.submitTopology(TOPOLOGY_NAME, cfg, builder.createTopology());
 	}
@@ -102,9 +109,11 @@ public class Driver {
 	}
 
 	private static HBaseBolt buildHBaseBolt() {
-		SimpleHBaseMapper mapper = new SimpleHBaseMapper().withRowKeyField(HBASE_KEY)
-				.withColumnFields(new Fields(HBASE_COLUMNNAMES)).withColumnFamily(HBASE_COLUMNFAMILY);
+		SimpleHBaseMapper mapper = new SimpleHBaseMapper()
+				.withRowKeyField(HBASE_KEY)
+				.withColumnFields(new Fields(HBASE_COLUMNNAMES))
+				.withColumnFamily(HBASE_COLUMNFAMILY);		
 
-		return new HBaseBolt(HBASE_TABLENAME, mapper);
+		return new HBaseBolt(HBASE_TABLENAME, mapper).withConfigKey("HBCONFIG");
 	}
 }
