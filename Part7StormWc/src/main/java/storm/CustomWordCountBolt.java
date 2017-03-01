@@ -10,8 +10,14 @@ import org.apache.storm.topology.base.BaseBasicBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.BiMap;
 
 public class CustomWordCountBolt extends BaseBasicBolt {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CustomWordCountBolt.class);
 	
 	public static IBasicBolt GetBoltInstance()
 	{
@@ -27,17 +33,21 @@ public class CustomWordCountBolt extends BaseBasicBolt {
 	}
 
 	public void execute(Tuple tuple, BasicOutputCollector oc) {
-		System.out.println("New tuple recieved");
-		
-	//	Caused by: java.lang.ClassCastException: com.google.common.collect.SingletonImmutableMap cannot be cast to java.lang.String
-
-		String key = tuple.getString(0);
-		String text = tuple.getString(1);
-		Map<String, Integer> wordsMap = CountWords(text.split("\\s+"));
-		
-		for (Map.Entry<String, Integer> entry : wordsMap.entrySet())
+		LOG.info("New tuple recieved");
+		BiMap pairs = (BiMap)tuple.getValue(0);			
+		for (Object key: pairs.keySet())
 		{
-			oc.emit(new Values(tuple.getString(0),entry.getKey(),entry.getValue()));
+			String keystr = String.valueOf(key);
+			String text = (String)pairs.get(key);
+			
+			Map<String, Integer> wordsMap = CountWords(text.split("\\s+"));
+			
+			for (Map.Entry<String, Integer> entry : wordsMap.entrySet())
+			{
+				LOG.info(keystr+":    "+entry.getKey()+":    "+entry.getValue());
+				
+				oc.emit(new Values(keystr,entry.getKey(),entry.getValue()));
+			}
 		}
 	}
 
