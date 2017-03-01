@@ -2,10 +2,6 @@
 using KafkaNet.Model;
 using KafkaNet.Protocol;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,29 +17,27 @@ namespace KafkaTestClient
             InitializeComponent();
         }
 
-        private static void AddFileToKafka(byte[] filename, byte[] message, string topic)
-        {
-            KafkaOptions options = new KafkaOptions(new Uri("http://sandbox.hortonworks.com:6667"));
+        private async Task AddFileToKafka(byte[] filename, byte[] message, string topic)
+        {            
+            KafkaOptions options = new KafkaOptions(new Uri("http://sandbox.hortonworks.com:6667"));       
             using (BrokerRouter router = new BrokerRouter(options))
             using (Producer client = new Producer(router))
             {
                 var topicMetas = router.GetTopicMetadata(topic);
 
-                var responses = client.SendMessageAsync(topic, 
+                var responses = await client.SendMessageAsync(topic,
                     new[] {
                         new KafkaNet.Protocol.Message
                         {
                             Key = filename,
                             Value = message
-                        }});
+                        }});                
 
-                responses.Wait();
-                if (responses != null)
-                {
-                    ProduceResponse response = responses.Result.FirstOrDefault();
-                }
-            }
-            Console.WriteLine("File added");
+                ProduceResponse response = responses.FirstOrDefault();
+                MessageBox.Show(String.Format("File added to the queue - partition {0} offset {1}",
+                    response.PartitionId,
+                    response.Offset));
+            }           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,7 +46,7 @@ namespace KafkaTestClient
             {
                 string filecontent = File.ReadAllText(openFileDialog1.FileName);
 
-                Form1.AddFileToKafka(
+                this.AddFileToKafka(
                     Encoding.Default.GetBytes(openFileDialog1.FileName),
                     Encoding.Default.GetBytes(filecontent), 
                     "stormwc");
