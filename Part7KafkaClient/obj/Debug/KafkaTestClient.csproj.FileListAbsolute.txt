@@ -1,0 +1,14 @@
+C:\Users\Alex\workspace\Remote\HadoopDemo\KafkaTestClient\bin\Debug\KafkaTestClient.exe.config
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\KafkaTestClient.exe.config
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.csprojResolveAssemblyReference.cache
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.Form1.resources
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.Properties.Resources.resources
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.csproj.GenerateResource.Cache
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\KafkaTestClient.exe
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\KafkaTestClient.pdb
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\kafka-net.dll
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\log4net.dll
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\ZooKeeperNet.dll
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\bin\Debug\log4net.xml
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.exe
+C:\Users\Alex\workspace\Remote\HadoopDemo\Part7KafkaClient\obj\Debug\KafkaTestClient.pdb

@@ -3,18 +3,13 @@ package storm;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.storm.task.OutputCollector;
-import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.IBasicBolt;
-import org.apache.storm.topology.IRichBolt;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseBasicBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
-
-import com.sun.tools.javac.parser.Scanner;
 
 public class CustomWordCountBolt extends BaseBasicBolt {
 	
@@ -34,6 +29,8 @@ public class CustomWordCountBolt extends BaseBasicBolt {
 	public void execute(Tuple tuple, BasicOutputCollector oc) {
 		System.out.println("New tuple recieved");
 		
+	//	Caused by: java.lang.ClassCastException: com.google.common.collect.SingletonImmutableMap cannot be cast to java.lang.String
+
 		String key = tuple.getString(0);
 		String text = tuple.getString(1);
 		Map<String, Integer> wordsMap = CountWords(text.split("\\s+"));

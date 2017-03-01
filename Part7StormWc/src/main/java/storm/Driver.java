@@ -36,11 +36,11 @@ public class Driver {
 
 	private static final String ZK_SERVERS = "localhost:2181";
 
-	private static final String HDFS_URL = "hdfs://localhost:8020";
+	private static final String HDFS_URL = "hdfs://sandbox.hortonworks.com:8020";
 	private static final String HDFS_CATALOG = "/stormwc";
 
 	private static final String KAFKA_TOPIC = "stormwc";
-	private static final String KAFKA_ZK_ROOT = "stormspouts";
+	private static final String KAFKA_ZK_ROOT = "/stormspouts";
 	private static final String KAFKA_ZK_ZNODE = "stormwckafkaspout";
 
 	private static final String HIVE_METASTORE_URI = "thrift://localhost:9083";
