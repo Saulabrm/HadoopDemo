@@ -8,7 +8,9 @@ import org.apache.storm.hbase.bolt.HBaseBolt;
 import org.apache.storm.hbase.bolt.mapper.SimpleHBaseMapper;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
+import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
 import org.apache.storm.hdfs.bolt.format.FileNameFormat;
+import org.apache.storm.hdfs.bolt.format.RecordFormat;
 import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy.Units;
@@ -50,7 +52,7 @@ public class Driver {
 
 	private static final String HBASE_TABLENAME = "stormwc";
 	private static final String HBASE_KEY = "filename";
-	private static final String HBASE_COLUMNFAMILY = "wordfamily";
+	private static final String HBASE_COLUMNFAMILY = "cfwc";
 	private static final String[] HBASE_COLUMNNAMES = { "word", "count" };
 
 	public static void main(String[] args) throws Exception {
@@ -87,14 +89,25 @@ public class Driver {
 		return new KafkaSpout(spoutCfg);
 	}
 
-	private static HdfsBolt buildHdfsBolt() {
-		FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(128.0f, Units.MB);
-		FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath(HDFS_CATALOG);
+	private static HdfsBolt buildHdfsBolt() {		
+		RecordFormat format = new DelimitedRecordFormat()
+		        .withFieldDelimiter("|");
 
-		return new HdfsBolt().withFsUrl(HDFS_URL)
-				.withFileNameFormat(fileNameFormat)
-				.withRotationPolicy(rotationPolicy)
-				.withSyncPolicy(new CountSyncPolicy(1000));
+		SyncPolicy syncPolicy = new CountSyncPolicy(1000);
+
+		FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(64.0f, Units.MB);
+
+		FileNameFormat fileNameFormat = new DefaultFileNameFormat()
+		        .withPath(HDFS_CATALOG);
+
+		HdfsBolt bolt = new HdfsBolt()
+		        .withFsUrl(HDFS_URL)
+		        .withFileNameFormat(fileNameFormat)
+		        .withRecordFormat(format)
+		        .withRotationPolicy(rotationPolicy)
+		        .withSyncPolicy(syncPolicy);
+		
+		return bolt;	
 	}
 
 	private static HiveBolt buildHiveBolt() {
