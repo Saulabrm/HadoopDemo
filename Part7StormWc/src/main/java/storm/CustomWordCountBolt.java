@@ -15,53 +15,53 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.BiMap;
 
-public class CustomWordCountBolt extends BaseBasicBolt {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(CustomWordCountBolt.class);
-	
-	public static IBasicBolt GetBoltInstance()
-	{
-		return new CustomWordCountBolt();
-	}
-	
-	private CustomWordCountBolt()
-	{		
-	}
+public class CustomWordCountBolt extends BaseBasicBolt
+{
 
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("filename", "word", "count"));
-	}
+    private static final Logger LOG = LoggerFactory.getLogger(CustomWordCountBolt.class);
 
-	public void execute(Tuple tuple, BasicOutputCollector oc) {
-		LOG.info("New tuple recieved");
-		Map pairs = (Map)tuple.getValue(0);			
-		for (Object key: pairs.keySet())
-		{
-			String keystr = String.valueOf(key);
-			String text = (String)pairs.get(key);
-			
-			Map<String, Integer> wordsMap = CountWords(text.split("\\s+"));
-			
-			for (Map.Entry<String, Integer> entry : wordsMap.entrySet())
-			{
-				LOG.info(keystr+":    "+entry.getKey()+":    "+entry.getValue());
-				
-				oc.emit(new Values(keystr,entry.getKey(),entry.getValue()));
-			}
-		}
-	}
+    public static IBasicBolt GetBoltInstance(){
+        return new CustomWordCountBolt();
+    }
 
-	private Map<String, Integer> CountWords(String[] words) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		for (String s : words) {
+    private CustomWordCountBolt(){
+    }
 
-			if (!map.containsKey(s)) { 
-				map.put(s, 1);
-			} else {
-				int count = map.get(s);
-				map.put(s, count + 1);
-			}
-		}
-		return map;
-	}
+    public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        declarer.declare(new Fields("filename", "words", "count"));
+    }
+
+    public void execute(Tuple tuple, BasicOutputCollector oc){
+        LOG.info("New tuple recieved");
+        BiMap pairs = (BiMap)tuple.getValue(0);
+        for (Object key: pairs.keySet())
+        {
+            String keystr = String.valueOf(key);
+            String text = (String)pairs.get(key);
+
+            Map<String, Integer> wordsMap = CountWords(text.split("\\s+"));
+
+            int total = 0;
+            for (Map.Entry<String, Integer> entry : wordsMap.entrySet())
+            {
+                 total = total + entry.getValue();
+                 LOG.info(keystr + ": " + entry.getKey() + ": "+entry.getValue());
+            }
+            oc.emit(new Values(keystr,text,total));
+        }
+    }
+
+    private Map<String, Integer> CountWords(String[] words) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        for (String s : words) {
+
+            if (!map.containsKey(s)) {
+                map.put(s, 1);
+            } else {
+                int count = map.get(s);
+                map.put(s, count + 1);
+            }
+        }
+       return map;
+    }
 }
