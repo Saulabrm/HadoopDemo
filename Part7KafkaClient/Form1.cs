@@ -49,7 +49,7 @@ namespace KafkaTestClient
                 this.AddFileToKafka(
                     Encoding.Default.GetBytes(openFileDialog1.FileName),
                     Encoding.Default.GetBytes(filecontent),
-                    "ATLAS_HOOK");
+                    "stormwctopic");
             }
         }
     }

@@ -38,7 +38,7 @@ public class Driver {
     private static final String HDFS_URL = "hdfs://sandbox.hortonworks.com";
     private static final String HDFS_CATALOG = "/stormwc";
 
-    private static final String KAFKA_TOPIC = "stormwc";
+    private static final String KAFKA_TOPIC = "stormwctopic";
     private static final String KAFKA_ZK_ROOT = "/stormspouts";
     private static final String KAFKA_ZK_ZNODE = "stormwckafkaspout";
 
