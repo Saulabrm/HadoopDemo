@@ -49,7 +49,7 @@ public class Driver {
 
     private static final String HBASE_TABLENAME = "stormwc";
     private static final String HBASE_KEY = "filename";
-    private static final String HBASE_COLUMNFAMILY = "wordfamily";
+    private static final String HBASE_COLUMNFAMILY = "cfwc";
     private static final String[] HBASE_COLUMNNAMES = { "words", "count" };
 
     public static void main(String[] args) throws Exception {
@@ -66,7 +66,7 @@ public class Driver {
 
         builder.setSpout("wcspout", wcKafkaSpout, numSpoutExecutors);
         builder.setBolt("wccountbolt", wcCountBolt).shuffleGrouping("wcspout");
-        builder.setBolt("wcHdfsBolt", wcHdfsBolt).shuffleGrouping("wccountbolt");
+    //   builder.setBolt("wcHdfsBolt", wcHdfsBolt).shuffleGrouping("wccountbolt");
         builder.setBolt("wcHBaseBolt", wcHBaseBolt).shuffleGrouping("wccountbolt");
      //   builder.setBolt("wcHiveBolt", wcHiveBolt).shuffleGrouping("wccountbolt");
 

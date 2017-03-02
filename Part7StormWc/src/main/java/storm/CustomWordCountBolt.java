@@ -33,7 +33,7 @@ public class CustomWordCountBolt extends BaseBasicBolt
 
     public void execute(Tuple tuple, BasicOutputCollector oc){
         LOG.info("New tuple recieved");
-        BiMap pairs = (BiMap)tuple.getValue(0);
+        Map pairs = (Map)tuple.getValue(0);
         for (Object key: pairs.keySet())
         {
             String keystr = String.valueOf(key);
