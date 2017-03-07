@@ -1,63 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>demo</groupId>
-  <artifactId>stormwc</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <repositories>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>demo</groupId>
+	<artifactId>stormwc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<repositories>
 		<repository>
 			<id>HDPReleases</id>
 			<url>http://repo.hortonworks.com/content/repositories/public</url>		
 		</repository>						
- </repositories>
-   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <filters>
-                 <filter>
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>defaults.yaml</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>/etc/hbase/conf</directory>
-        <includes>
-          <include>hbase-site.xml</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>/etc/hadoop/conf</directory>
-        <includes>
-          <include>hdfs-site.xml</include>
-          <include>core-site.xml</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>/etc/hive/conf</directory>
-        <includes>
-          <include>hive-site.xml</include>  
-        </includes>
-      </resource>
-    </resources>
-  </build>
-  <dependencies>
+	</repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>defaults.yaml</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>/etc/hbase/conf</directory>
+				<includes>
+					<include>hbase-site.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>/etc/hadoop/conf</directory>
+				<includes>
+					<include>hdfs-site.xml</include>
+					<include>core-site.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>/etc/hive/conf</directory>
+				<includes>
+					<include>hive-site.xml</include>  
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	<dependencies>
 		<dependency>
 			<groupId>org.apache.storm</groupId>
 			<artifactId>storm-core</artifactId>
@@ -79,9 +79,9 @@
 			<version>1.0.1.2.5.0.0-1245</version> 			
 		</dependency> 
 		<dependency>
-  			<groupId>org.apache.storm</groupId>
- 			 <artifactId>storm-kafka</artifactId>
- 			 <version>1.0.1.2.5.0.0-1245</version>
+			<groupId>org.apache.storm</groupId>
+			<artifactId>storm-kafka</artifactId>
+			<version>1.0.1.2.5.0.0-1245</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
@@ -94,21 +94,20 @@
 				</exclusion>
 			</exclusions> 
 		</dependency>
-		  <dependency>
-        <groupId>org.apache.curator</groupId>
-        <artifactId>curator-framework</artifactId>
-        <version>2.10.0</version>
-        <exclusions>
-           <exclusion>
-               <groupId>log4j</groupId>
-               <artifactId>log4j</artifactId>
-           </exclusion>
-           <exclusion>
-               <groupId>org.jboss.netty</groupId>
-               <artifactId>netty</artifactId>
-           </exclusion>
-        </exclusions>
-    </dependency>
-	
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<version>2.10.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.netty</groupId>
+					<artifactId>netty</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 </project>
