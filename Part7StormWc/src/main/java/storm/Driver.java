@@ -8,7 +8,9 @@ import org.apache.storm.hbase.bolt.HBaseBolt;
 import org.apache.storm.hbase.bolt.mapper.SimpleHBaseMapper;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
 import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
+import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
 import org.apache.storm.hdfs.bolt.format.FileNameFormat;
+import org.apache.storm.hdfs.bolt.format.RecordFormat;
 import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy.Units;
@@ -38,7 +40,7 @@ public class Driver {
     private static final String HDFS_URL = "hdfs://sandbox.hortonworks.com";
     private static final String HDFS_CATALOG = "/stormwc";
 
-    private static final String KAFKA_TOPIC = "stormwctopic";
+    private static final String KAFKA_TOPIC = "stormwc";
     private static final String KAFKA_ZK_ROOT = "/stormspouts";
     private static final String KAFKA_ZK_ZNODE = "stormwckafkaspout";
 
@@ -66,9 +68,9 @@ public class Driver {
 
         builder.setSpout("wcspout", wcKafkaSpout, numSpoutExecutors);
         builder.setBolt("wccountbolt", wcCountBolt).shuffleGrouping("wcspout");
-    //   builder.setBolt("wcHdfsBolt", wcHdfsBolt).shuffleGrouping("wccountbolt");
+        builder.setBolt("wcHdfsBolt", wcHdfsBolt).shuffleGrouping("wccountbolt");
         builder.setBolt("wcHBaseBolt", wcHBaseBolt).shuffleGrouping("wccountbolt");
-     //   builder.setBolt("wcHiveBolt", wcHiveBolt).shuffleGrouping("wccountbolt");
+        builder.setBolt("wcHiveBolt", wcHiveBolt).shuffleGrouping("wccountbolt");
 
         Config cfg = new Config();
         Map<String, String> HBConfig = Maps.newHashMap();
@@ -88,9 +90,11 @@ public class Driver {
     private static HdfsBolt buildHdfsBolt() {
         FileRotationPolicy rotationPolicy = new FileSizeRotationPolicy(128.0f, Units.MB);
         FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath(HDFS_CATALOG);
+        RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter("|");
 
         return new HdfsBolt().withFsUrl(HDFS_URL)
         .withFileNameFormat(fileNameFormat)
+        .withRecordFormat(format)
         .withRotationPolicy(rotationPolicy)
         .withSyncPolicy(new CountSyncPolicy(1000));
     }
