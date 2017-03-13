@@ -1,0 +1,10 @@
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\StormVideoClient.exe.config
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\StormVideoClient.exe
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\StormVideoClient.pdb
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\Newtonsoft.Json.dll
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\Storm.Net.Adapter.dll
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\Thrift.dll
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\bin\Debug\Newtonsoft.Json.xml
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.csprojResolveAssemblyReference.cache
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.exe
+c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.pdb
