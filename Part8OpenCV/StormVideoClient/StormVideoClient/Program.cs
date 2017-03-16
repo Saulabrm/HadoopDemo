@@ -18,7 +18,7 @@ namespace StormVideoClient
             DRPCClient client = new DRPCClient("localhost", 3772);
             string result = client.execute("video", base64Str);
 
-            File.WriteAllBytes("c:\outmodified.mp4", Convert.FromBase64String(result));
+            File.WriteAllBytes(@"c:\outmodified.mp4", Convert.FromBase64String(result));
         }
     }
 }
