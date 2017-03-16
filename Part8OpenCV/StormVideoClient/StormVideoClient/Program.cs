@@ -12,13 +12,13 @@ namespace StormVideoClient
     {
         static void Main(string[] args)
         {
-            var bytes = File.ReadAllBytes(@"D:\Projects\drive-download-20170311T100820Z-001\ffmpeg-20161110-872b358-win64-static\bin\out1.mp4");
+            var bytes = File.ReadAllBytes(@"c:\out.mp4");
             string base64Str = Convert.ToBase64String(bytes);
 
             DRPCClient client = new DRPCClient("localhost", 3772);
             string result = client.execute("video", base64Str);
 
-            File.WriteAllBytes("tmp.avi", Convert.FromBase64String(result));
+            File.WriteAllBytes("c:\outmodified.mp4", Convert.FromBase64String(result));
         }
     }
 }
