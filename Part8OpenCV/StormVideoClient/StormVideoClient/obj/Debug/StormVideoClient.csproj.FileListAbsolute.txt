@@ -8,3 +8,6 @@ c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoC
 c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.csprojResolveAssemblyReference.cache
 c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.exe
 c:\users\alex\documents\visual studio 2015\Projects\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.pdb
+C:\Hadoop\Demo\Part8OpenCV\StormVideoClient\StormVideoClient\bin\Debug\StormVideoClient.exe.config
+C:\Hadoop\Demo\Part8OpenCV\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.exe
+C:\Hadoop\Demo\Part8OpenCV\StormVideoClient\StormVideoClient\obj\Debug\StormVideoClient.pdb

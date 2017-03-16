@@ -60,6 +60,11 @@ public class VideoDetectionBolt extends BaseBasicBolt {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void declareOutputFields(OutputFieldsDeclarer declarer) {
+		declarer.declare(new Fields("id", "video"));
+	}
 
 	private void DetectFaces(List<IplImage> images) {
 		int size = images.size();
@@ -88,12 +93,7 @@ public class VideoDetectionBolt extends BaseBasicBolt {
 
 			images.set(i, imageWithPhotoFilter);
 		}
-	}
-
-	@Override
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("id", "video"));
-	}
+	}	
 
 	private static List<IplImage> Grab(byte[] data) throws IOException {
 

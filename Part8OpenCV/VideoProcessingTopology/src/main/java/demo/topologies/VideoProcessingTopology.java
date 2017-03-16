@@ -14,7 +14,7 @@ public class VideoProcessingTopology {
 		Config cfg = new Config();	
 		cfg.put("drpc.servers", Arrays.asList(new String[]{"localhost"}));
 		
-		 LinearDRPCTopologyBuilder builder = new LinearDRPCTopologyBuilder("exclamation");
+		 LinearDRPCTopologyBuilder builder = new LinearDRPCTopologyBuilder("video");
 		 builder.addBolt(new VideoDetectionBolt(), 1);
 		 
 		 cfg.setNumWorkers(1);
